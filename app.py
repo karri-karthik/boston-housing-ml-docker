@@ -31,10 +31,12 @@ def predict():
 
     prediction = model.predict([features])[0]
 
+    price = prediction * 1000  # Boston housing prices are in $1000s
+
     return render_template(
-        "index.html",
-        prediction_text=f"Predicted House Price: {prediction:.2f}"
-    )
+    "index.html",
+    prediction_text=f"Estimated House Price: ${price:,.2f}"
+)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
