@@ -2,28 +2,92 @@
 <html>
 <head>
     <title>Boston Housing Price Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            width: 420px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 18px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Boston Housing Price Prediction</h2>
+    <div class="card">
+        <h2>🏠 House Price Predictor</h2>
 
-    <form action="/predict" method="post">
-        <input name="CRIM" placeholder="CRIM" required><br>
-        <input name="ZN" placeholder="ZN" required><br>
-        <input name="INDUS" placeholder="INDUS" required><br>
-        <input name="CHAS" placeholder="CHAS" required><br>
-        <input name="NOX" placeholder="NOX" required><br>
-        <input name="RM" placeholder="RM" required><br>
-        <input name="AGE" placeholder="AGE" required><br>
-        <input name="DIS" placeholder="DIS" required><br>
-        <input name="RAD" placeholder="RAD" required><br>
-        <input name="TAX" placeholder="TAX" required><br>
-        <input name="PTRATIO" placeholder="PTRATIO" required><br>
-        <input name="B" placeholder="B" required><br>
-        <input name="LSTAT" placeholder="LSTAT" required><br>
+        <form action="/predict" method="post">
+            <input name="CRIM" placeholder="Crime Rate" required>
+            <input name="ZN" placeholder="Residential Land %" required>
+            <input name="INDUS" placeholder="Industrial Area %" required>
+            <input name="CHAS" placeholder="Near River (0 or 1)" required>
+            <input name="NOX" placeholder="Air Pollution (NOX)" required>
+            <input name="RM" placeholder="Avg Rooms" required>
+            <input name="AGE" placeholder="Old Houses %" required>
+            <input name="DIS" placeholder="Distance to City" required>
+            <input name="RAD" placeholder="Road Access" required>
+            <input name="TAX" placeholder="Property Tax" required>
+            <input name="PTRATIO" placeholder="Student–Teacher Ratio" required>
+            <input name="B" placeholder="Population Index" required>
+            <input name="LSTAT" placeholder="Lower Income %" required>
 
-        <button type="submit">Predict</button>
-    </form>
+            <button type="submit">Predict Price</button>
+        </form>
 
-    <h3>{{ prediction_text }}</h3>
+        {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
