@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boston Housing Price Predictor</title>
+</head>
+<body>
+    <h2>Boston Housing Price Prediction</h2>
+
+    <form action="/predict" method="post">
+        <input name="CRIM" placeholder="CRIM" required><br>
+        <input name="ZN" placeholder="ZN" required><br>
+        <input name="INDUS" placeholder="INDUS" required><br>
+        <input name="CHAS" placeholder="CHAS" required><br>
+        <input name="NOX" placeholder="NOX" required><br>
+        <input name="RM" placeholder="RM" required><br>
+        <input name="AGE" placeholder="AGE" required><br>
+        <input name="DIS" placeholder="DIS" required><br>
+        <input name="RAD" placeholder="RAD" required><br>
+        <input name="TAX" placeholder="TAX" required><br>
+        <input name="PTRATIO" placeholder="PTRATIO" required><br>
+        <input name="B" placeholder="B" required><br>
+        <input name="LSTAT" placeholder="LSTAT" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <h3>{{ prediction_text }}</h3>
+</body>
+</html>
