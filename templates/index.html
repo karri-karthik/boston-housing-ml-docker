@@ -1,55 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boston Housing Price Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
-
-<header>
-    🏠 Boston Housing Price Prediction App
-</header>
-
-<div class="container">
-    <h2>Enter House Details</h2>
-
-    <form action="/predict" method="post">
-        <div class="grid">
-            <input name="CRIM" placeholder="Crime Rate" required>
-            <input name="ZN" placeholder="Residential Land %" required>
-
-            <input name="INDUS" placeholder="Industrial Area %" required>
-            <input name="CHAS" placeholder="Near River (0 or 1)" required>
-
-            <input name="NOX" placeholder="Air Pollution (NOX)" required>
-            <input name="RM" placeholder="Average Rooms" required>
-
-            <input name="AGE" placeholder="Old Houses %" required>
-            <input name="DIS" placeholder="Distance to City" required>
-
-            <input name="RAD" placeholder="Road Access Index" required>
-            <input name="TAX" placeholder="Property Tax" required>
-
-            <input name="PTRATIO" placeholder="Student–Teacher Ratio" required>
-            <input name="B" placeholder="Population Index" required>
-
-            <input name="LSTAT" placeholder="Lower Income %" required>
-        </div>
-
-        <button type="submit">Predict House Price</button>
-    </form>
-
-    {% if prediction_text %}
-    <div class="result">
-        {{ prediction_text }}
+    <div class="hero">
+        <h1>🏠 Boston Housing Price Predictor</h1>
+        <p>Predict house prices with machine learning. Adjust the sliders and hit predict!</p>
     </div>
-    {% endif %}
-</div>
 
-<footer>
-    Built by Karthik | ML + Flask + Docker 🚀
-</footer>
+    <div class="container">
+        <h2><i class="fas fa-home"></i> Enter House Details</h2>
+        <form action="/predict" method="post" id="prediction-form">
+            <div class="grid">
+                <div class="input-group">
+                    <label for="CRIM"><i class="fas fa-shield-alt"></i> Crime Rate</label>
+                    <input type="range" id="CRIM" name="CRIM" min="0" max="100" step="0.1" value="0.5" required>
+                    <span class="value-display" id="CRIM-value">0.5</span>
+                </div>
+                <div class="input-group">
+                    <label for="ZN"><i class="fas fa-city"></i> Residential Land %</label>
+                    <input type="range" id="ZN" name="ZN" min="0" max="100" step="1" value="18" required>
+                    <span class="value-display" id="ZN-value">18</span>
+                </div>
+                <div class="input-group">
+                    <label for="INDUS"><i class="fas fa-industry"></i> Industrial Area %</label>
+                    <input type="range" id="INDUS" name="INDUS" min="0" max="30" step="0.1" value="11" required>
+                    <span class="value-display" id="INDUS-value">11</span>
+                </div>
+                <div class="input-group">
+                    <label for="CHAS"><i class="fas fa-water"></i> Near River (0 or 1)</label>
+                    <input type="range" id="CHAS" name="CHAS" min="0" max="1" step="1" value="0" required>
+                    <span class="value-display" id="CHAS-value">0</span>
+                </div>
+                <div class="input-group">
+                    <label for="NOX"><i class="fas fa-smog"></i> Air Pollution (NOX)</label>
+                    <input type="range" id="NOX" name="NOX" min="0" max="1" step="0.01" value="0.55" required>
+                    <span class="value-display" id="NOX-value">0.55</span>
+                </div>
+                <div class="input-group">
+                    <label for="RM"><i class="fas fa-bed"></i> Average Rooms</label>
+                    <input type="range" id="RM" name="RM" min="3" max="9" step="0.1" value="6.2" required>
+                    <span class="value-display" id="RM-value">6.2</span>
+                </div>
+                <div class="input-group">
+                    <label for="AGE"><i class="fas fa-clock"></i> Old Houses %</label>
+                    <input type="range" id="AGE" name="AGE" min="0" max="100" step="1" value="68" required>
+                    <span class="value-display" id="AGE-value">68</span>
+                </div>
+                <div class="input-group">
+                    <label for="DIS"><i class="fas fa-route"></i> Distance to City</label>
+                    <input type="range" id="DIS" name="DIS" min="1" max="12" step="0.1" value="3.8" required>
+                    <span class="value-display" id="DIS-value">3.8</span>
+                </div>
+                <div class="input-group">
+                    <label for="RAD"><i class="fas fa-road"></i> Road Access Index</label>
+                    <input type="range" id="RAD" name="RAD" min="1" max="24" step="1" value="9" required>
+                    <span class="value-display" id="RAD-value">9</span>
+                </div>
+                <div class="input-group">
+                    <label for="TAX"><i class="fas fa-dollar-sign"></i> Property Tax</label>
+                    <input type="range" id="TAX" name="TAX" min="187" max="711" step="1" value="408" required>
+                    <span class="value-display" id="TAX-value">408</span>
+                </div>
+                <div class="input-group">
+                    <label for="PTRATIO"><i class="fas fa-chalkboard-teacher"></i> Student–Teacher Ratio</label>
+                    <input type="range" id="PTRATIO" name="PTRATIO" min="12" max="22" step="0.1" value="18.5" required>
+                    <span class="value-display" id="PTRATIO-value">18.5</span>
+                </div>
+                <div class="input-group">
+                    <label for="B"><i class="fas fa-users"></i> Population Index</label>
+                    <input type="range" id="B" name="B" min="0" max="400" step="1" value="356" required>
+                    <span class="value-display" id="B-value">356</span>
+                </div>
+                <div class="input-group">
+                    <label for="LSTAT"><i class="fas fa-chart-line"></i> Lower Income %</label>
+                    <input type="range" id="LSTAT" name="LSTAT" min="1" max="40" step="0.1" value="12.7" required>
+                    <span class="value-display" id="LSTAT-value">12.7</span>
+                </div>
+            </div>
+            <button type="submit" id="predict-btn"><i class="fas fa-magic"></i> Predict House Price</button>
+        </form>
 
+        {% if prediction_text %}
+        <div class="result animate">
+            <i class="fas fa-home"></i> {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>Built by Karthik | ML + Flask + Docker 🚀</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Update slider values dynamically
+        const sliders = document.querySelectorAll('input[type="range"]');
+        sliders.forEach(slider => {
+            const valueDisplay = document.getElementById(slider.id + '-value');
+            slider.addEventListener('input', () => {
+                valueDisplay.textContent = slider.value;
+            });
+        });
+
+        // Add loading effect on form submit
+        const form = document.getElementById('prediction-form');
+        const btn = document.getElementById('predict-btn');
+        form.addEventListener('submit', () => {
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Predicting...';
+            btn.disabled = true;
+        });
+    </script>
 </body>
 </html>
